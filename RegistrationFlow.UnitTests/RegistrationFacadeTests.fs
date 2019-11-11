@@ -9,11 +9,13 @@ open Ploeh.Samples.Registration
 let createFixture () =
     let twoFA = Fake2FA ()
     let db = FakeRegistrationDB ()
-    let sut =
+    let sut pid r =
         completeRegistrationWorkflow
             twoFA.CreateProof
             twoFA.VerifyProof
             db.CompleteRegistration
+            pid
+            r
     sut, twoFA, db
 
 [<Theory>]
