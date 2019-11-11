@@ -8,22 +8,18 @@ type Registration = { Mobile : Mobile }
 type CompleteRegistrationResult = ProofRequired of ProofId | RegistrationCompleted
 
 let completeRegistrationWorkflow
-    (createProof: Mobile -> Async<ProofId>)
     (completeRegistration: Registration -> Async<unit>)
     (proof: bool option)
     (registration: Registration)
-    : Async<CompleteRegistrationResult> =
+    : Async<Mobile option> =
     async {
         match proof with
-        | None ->
-            let! proofId = createProof registration.Mobile
-            return ProofRequired proofId
+        | None -> return Some registration.Mobile
         | Some isValid ->
             if isValid then
                 do! completeRegistration registration
-                return RegistrationCompleted
+                return None
             else
-                let! proofId = createProof registration.Mobile
-                return ProofRequired proofId
+                return Some registration.Mobile
     }
 
