@@ -43,3 +43,18 @@ let ``Valid proof ID`` mobile = async {
 
     RegistrationCompleted =! actual
     test <@ Seq.contains r db @> }
+
+[<Theory>]
+[<InlineData 327>]
+[<InlineData 666>]
+let ``Invalid proof ID`` mobile = async {
+    let sut, twoFA, db = createFixture ()
+    let r = { Mobile = Mobile mobile }
+    let! p = twoFA.CreateProof r.Mobile
+
+    let! actual = sut (Some p) r
+
+    let! expectedProofId = twoFA.CreateProof r.Mobile
+    let expected = ProofRequired expectedProofId
+    expected =! actual
+    test <@ Seq.isEmpty db @> }
