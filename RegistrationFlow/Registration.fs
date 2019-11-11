@@ -10,13 +10,9 @@ type CompleteRegistrationResult = ProofRequired of ProofId | RegistrationComplet
 let completeRegistrationWorkflow
     (proof: bool option)
     (registration: Registration)
-    : Async<Result<Registration, Mobile>> =
-    async {
-        match proof with
-        | None -> return Error registration.Mobile
-        | Some isValid ->
-            if isValid then
-                return Ok registration
-            else
-                return Error registration.Mobile
-    }
+    : Result<Registration, Mobile> =
+    match proof with
+    | None -> Error registration.Mobile
+    | Some isValid ->
+        if isValid then Ok registration
+        else Error registration.Mobile
