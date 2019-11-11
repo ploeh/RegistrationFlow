@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RegistrationFlow", "RegistrationFlow\RegistrationFlow.fsproj", "{B5A346E8-9A22-421C-B900-19486E737090}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RegistrationFlow.UnitTests", "RegistrationFlow.UnitTests\RegistrationFlow.UnitTests.fsproj", "{98D49D30-1487-44DD-9B52-FBAF945088C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B5A346E8-9A22-421C-B900-19486E737090}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5A346E8-9A22-421C-B900-19486E737090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5A346E8-9A22-421C-B900-19486E737090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98D49D30-1487-44DD-9B52-FBAF945088C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98D49D30-1487-44DD-9B52-FBAF945088C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98D49D30-1487-44DD-9B52-FBAF945088C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98D49D30-1487-44DD-9B52-FBAF945088C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
