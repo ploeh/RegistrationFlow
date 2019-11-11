@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Ploeh.Samples.RegistrationFlow</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Registration.fs" />
+  </ItemGroup>
+
+</Project>
