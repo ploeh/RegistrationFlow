@@ -10,12 +10,7 @@ let createFixture () =
     let twoFA = Fake2FA ()
     let db = FakeRegistrationDB ()
     let sut pid r = async {
-        let! p =
-            match Option.map (twoFA.VerifyProof r.Mobile) pid with
-            | Some b -> async {
-                let! b' = b
-                return Some b' }
-            | None -> async { return None }
+        let! p = AsyncOption.traverse (twoFA.VerifyProof r.Mobile) pid
         return! completeRegistrationWorkflow
             twoFA.CreateProof
             db.CompleteRegistration
