@@ -12,7 +12,5 @@ let completeRegistrationWorkflow
     (registration: Registration)
     : Result<Registration, Mobile> =
     match proof with
-    | None -> Error registration.Mobile
-    | Some isValid ->
-        if isValid then Ok registration
-        else Error registration.Mobile
+    | Some true -> Ok registration
+    | _ -> Error registration.Mobile
