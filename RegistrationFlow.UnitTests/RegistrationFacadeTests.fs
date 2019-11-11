@@ -1,5 +1,6 @@
 ﻿module Ploeh.Samples.RegistrationFacadeTests
 
+open System
 open Xunit
 open Swensen.Unquote
 open Ploeh.Samples.Tests.Fakes
@@ -28,3 +29,17 @@ let ``Missing proof ID`` mobile = async {
     let expected = ProofRequired expectedProofId
     expected =! actual
     test <@ Seq.isEmpty db @> }
+
+[<Theory>]
+[<InlineData 987>]
+[<InlineData 247>]
+let ``Valid proof ID`` mobile = async {
+    let sut, twoFA, db = createFixture ()
+    let r = { Mobile = Mobile mobile }
+    let! p = twoFA.CreateProof r.Mobile
+    twoFA.VerifyMobile r.Mobile
+
+    let! actual = sut (Some p) r
+
+    RegistrationCompleted =! actual
+    test <@ Seq.contains r db @> }
