@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Async.fs" />
     <Compile Include="Result.fs" />
     <Compile Include="AsyncResult.fs" />
     <Compile Include="AsyncOption.fs" />
