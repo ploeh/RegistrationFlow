@@ -11,15 +11,15 @@ let completeRegistrationWorkflow
     (completeRegistration: Registration -> Async<unit>)
     (proof: bool option)
     (registration: Registration)
-    : Async<Mobile option> =
+    : Async<Result<unit, Mobile>> =
     async {
         match proof with
-        | None -> return Some registration.Mobile
+        | None -> return Error registration.Mobile
         | Some isValid ->
             if isValid then
                 do! completeRegistration registration
-                return None
+                return Ok ()
             else
-                return Some registration.Mobile
+                return Error registration.Mobile
     }
 

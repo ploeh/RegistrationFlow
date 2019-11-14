@@ -12,10 +12,13 @@ let createFixture () =
     let sut pid r = async {
         let! p = AsyncOption.traverse (twoFA.VerifyProof r.Mobile) pid
         let! res = completeRegistrationWorkflow db.CompleteRegistration p r
-        let! pidr = AsyncOption.traverse twoFA.CreateProof res
+        let! pidr =
+            AsyncResult.traverseBoth
+                (fun () -> async { return () })
+                twoFA.CreateProof
+                res
         return pidr
-            |> Option.map ProofRequired
-            |> Option.defaultValue RegistrationCompleted }
+            |> Result.cata (fun () -> RegistrationCompleted) ProofRequired }
     sut, twoFA, db
 
 [<Theory>]

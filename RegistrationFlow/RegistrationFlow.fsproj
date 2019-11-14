@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Result.fs" />
+    <Compile Include="AsyncResult.fs" />
     <Compile Include="AsyncOption.fs" />
     <Compile Include="Registration.fs" />
   </ItemGroup>
