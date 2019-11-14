@@ -9,13 +9,19 @@ open Ploeh.Samples.Registration
 let createFixture () =
     let twoFA = Fake2FA ()
     let db = FakeRegistrationDB ()
-    let sut pid r =
-        completeRegistrationWorkflow
+    let sut pid r = async {
+        let! p =
+            match Option.map (twoFA.VerifyProof r.Mobile) pid with
+            | Some b -> async {
+                let! b' = b
+                return Some b' }
+            | None -> async { return None }
+        return! completeRegistrationWorkflow
             twoFA.CreateProof
-            twoFA.VerifyProof
             db.CompleteRegistration
-            pid
+            p
             r
+        }
     sut, twoFA, db
 
 [<Theory>]
